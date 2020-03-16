@@ -1,0 +1,10 @@
+{"migrations":[
+    {"id":1, "version":"0.1", "sql":"CREATE TABLE migration (migration_id integer NOT NULL PRIMARY KEY, version text NOT NULL, sql text NOT NULL, date_created timestamp NOT NULL)"},
+    {"id":2, "version":"0.1", "sql":"CREATE TABLE sensor (sensor_id integer NOT NULL PRIMARY KEY, sensor_name text NOT NULL UNIQUE, sensor_type text NOT NULL, hostname text NOT NULL,status TEXT NOT NULL,parameters text NULL,date_created timestamp NOT NULL, date_modified timestamp NULL)"},
+    {"id":3, "version":"0.1", "sql":"CREATE TABLE sensor_log (sensor_log_id integer NOT NULL PRIMARY KEY, sensor_id integer NOT NULL, log_date timestamp NOT NULL, status texst NOT NULL, attributes json NULL)"},
+    {"id":4, "version":"0.1", "sql":"CREATE VIEW v_sensor_log AS select sl.sensor_log_id, s.sensor_id, s.sensor_name , s.hostname, sl.log_date, sl.status, json_extract(sl.attributes, '$.response') response, json_extract(sl.attributes, '$.reason_code') reason_code,json_extract(sl.attributes, '$.response_time') response_time, sl.attributes from sensor s inner join sensor_log sl on (s.sensor_id =sl.sensor_id ) order by sl.sensor_log_id desc"}
+]
+}
+
+
+
